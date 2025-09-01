@@ -1,0 +1,3410 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendaftaran Siswa Baru</title>
+    <style>
+      * {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+      }
+      .form-section {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+      .form-section:last-child {
+        border-bottom: none;
+      }
+      h2 {
+        color: #3498db;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      .row {
+        display: flex;
+        gap: 20px;
+      }
+      .col-6 {
+        flex: 50%;
+      }
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .checkbox-group input {
+        margin-right: 10px;
+      }
+      .radio-group {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .radio-item {
+        display: flex;
+        align-items: center;
+      }
+      .radio-item input {
+        margin-right: 5px;
+      }
+      .conditional-section {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border-left: 4px solid #3498db;
+      }
+      .conditional-section.active {
+        display: block;
+      }
+      .btn-submit {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .btn-submit:hover {
+        background-color: #2980b9;
+      }
+      .wali-section {
+        display: none;
+      }
+      .wali-section.active {
+        display: block;
+      }
+      /* Bukti Pendaftaran */
+      .bukti-container {
+        display: none;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+      }
+      .kop-surat {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+      .logo-container {
+        flex: 0 0 80px;
+        margin-right: 15px;
+      }
+      .logo-container img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+      .kop-text {
+        flex: 1;
+        text-align: center;
+      }
+      .kop-surat h1 {
+        margin: 2px 0;
+        font-size: 14px;
+        color: #2c3e50;
+      }
+      .kop-surat h2 {
+        margin: 2px 0;
+        font-size: 12px;
+        color: #3498db;
+      }
+      .kop-surat p {
+        margin: 1px 0;
+        font-size: 10px;
+      }
+      .bukti-header {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .bukti-header h1 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 16px;
+      }
+      .bukti-info {
+        margin-bottom: 10px;
+      }
+      .bukti-info h2 {
+        color: #3498db;
+        font-size: 12px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 2px;
+      }
+      .bukti-info p {
+        margin: 2px 0;
+        font-size: 11px;
+      }
+      .bukti-info strong {
+        display: inline-block;
+        width: 150px;
+      }
+      .tanda-tangan {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .tanda-tangan-box {
+        text-align: center;
+        width: 45%;
+      }
+      .tanda-tangan-box p {
+        margin: 2px 0;
+        font-size: 11px;
+      }
+      .garis-tanda-tangan {
+        border-bottom: 1px solid #333;
+        height: 20px;
+        margin-bottom: 2px;
+      }
+      .btn-print {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .btn-print:hover {
+        background-color: #229954;
+      }
+      .btn-download {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .btn-download:hover {
+        background-color: #c0392b;
+      }
+      .btn-back {
+        background-color: #f39c12;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .btn-back:hover {
+        background-color: #d68910;
+      }
+      .btn-dashboard {
+        background-color: #9b59b6;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .btn-dashboard:hover {
+        background-color: #8e44ad;
+      }
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #2ecc71;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+      }
+      /* Dashboard Styles */
+      .dashboard-container {
+        display: none;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+      }
+      .dashboard-title h1 {
+        margin: 0;
+        color: #2c3e50;
+      }
+      .dashboard-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .btn-new {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .btn-new:hover {
+        background-color: #2980b9;
+      }
+      .table-container {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      tr:hover {
+        background-color: #f8f9fa;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+      }
+      .btn-small {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+      .btn-view {
+        background-color: #3498db;
+        color: white;
+      }
+      .btn-view:hover {
+        background-color: #2980b9;
+      }
+      .btn-edit {
+        background-color: #f39c12;
+        color: white;
+      }
+      .btn-edit:hover {
+        background-color: #d68910;
+      }
+      .btn-print {
+        background-color: #27ae60;
+        color: white;
+      }
+      .btn-print:hover {
+        background-color: #229954;
+      }
+      .btn-delete {
+        background-color: #e74c3c;
+        color: white;
+      }
+      .btn-delete:hover {
+        background-color: #c0392b;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 40px 0;
+        color: #7f8c8d;
+      }
+      .empty-state i {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+      .stats-container {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        flex: 1;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .stat-card h3 {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #7f8c8d;
+      }
+      .stat-card .number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2c3e50;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow: auto;
+      }
+      .modal-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 800px;
+        position: relative;
+      }
+      .close {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #aaa;
+      }
+      .close:hover {
+        color: #333;
+      }
+      .modal-header {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      .modal-section {
+        margin-bottom: 20px;
+      }
+      .modal-section h3 {
+        color: #3498db;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      .modal-row {
+        display: flex;
+        margin-bottom: 8px;
+      }
+      .modal-label {
+        width: 200px;
+        font-weight: 600;
+      }
+      /* Edit Form Styles */
+      .edit-form-container {
+        display: none;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+      .edit-form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+      }
+      .edit-form-title h1 {
+        margin: 0;
+        color: #2c3e50;
+      }
+      .edit-form-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .btn-cancel {
+        background-color: #95a5a6;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .btn-cancel:hover {
+        background-color: #7f8c8d;
+      }
+      .btn-save {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .btn-save:hover {
+        background-color: #229954;
+      }
+      /* Print Bukti Styles */
+      .print-bukti-container {
+        display: none;
+        page-break-after: avoid;
+      }
+      @media print {
+        body {
+          background-color: white;
+          padding: 0;
+          margin: 0;
+          font-size: 10px;
+          line-height: 1.2;
+        }
+        .container,
+        .bukti-container,
+        .dashboard-container,
+        .modal,
+        .edit-form-container {
+          box-shadow: none;
+          max-width: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        .btn-print,
+        .btn-download,
+        .btn-back,
+        .btn-dashboard,
+        .btn-new,
+        .action-buttons,
+        .close,
+        .btn-save,
+        .btn-cancel {
+          display: none;
+        }
+        .dashboard-header,
+        .stats-container,
+        .table-container,
+        .edit-form-header,
+        .edit-form-actions {
+          display: none;
+        }
+        .print-bukti-container {
+          display: block;
+          width: 210mm;
+          margin: 0 auto;
+          padding: 10mm; /* Tambahkan padding untuk ruang lebih */
+          page-break-inside: avoid;
+        }
+        /* Tambahkan ruang antar bagian */
+        .kop-surat {
+          border-bottom: 1pt solid #3498db;
+          padding-bottom: 5mm; /* Tambah jarak bawah */
+          margin-bottom: 5mm; /* Tambah margin bawah */
+          display: flex;
+          align-items: center;
+          page-break-inside: avoid;
+        }
+        .bukti-header {
+          text-align: center;
+          margin-bottom: 7mm; /* Tambah jarak bawah */
+          page-break-inside: avoid;
+        }
+        .two-column {
+          display: flex;
+          gap: 5mm; /* Perbesar jarak antar kolom */
+          margin-bottom: 5mm; /* Tambah margin bawah */
+          page-break-inside: avoid;
+        }
+        .column {
+          flex: 1;
+          page-break-inside: avoid;
+        }
+        .bukti-info {
+          margin-bottom: 5mm; /* Tambah jarak antar bagian */
+          page-break-inside: avoid;
+        }
+        .bukti-info h2 {
+          font-size: 10pt;
+          margin: 2pt 0 3pt 0; /* Sesuaikan margin */
+          border-bottom: 0.5pt solid #3498db;
+          padding-bottom: 1pt;
+          page-break-after: avoid;
+        }
+        .bukti-info p {
+          font-size: 10pt; /* Perkecil sedikit untuk muat lebih banyak */
+          margin: 1.2pt 0; /* Sesuaikan jarak antar baris */
+          line-height: 1.3; /* Tambahkan line-height */
+        }
+        /* Perbaiki tata letak tanda tangan */
+        .tanda-tangan {
+          display: flex;
+          justify-content: center;
+          margin-top: 15mm; /* Tambah jarak atas yang cukup */
+          margin-bottom: 10mm; /* Tambah jarak bawah */
+          page-break-inside: avoid;
+        }
+        .tanda-tangan-box {
+          text-align: center;
+          width: 40%;
+          padding-top: 5mm; /* Tambah ruang di atas */
+        }
+        .garis-tanda-tangan {
+          border-bottom: 0.5pt solid #333;
+          height: 15pt; /* Tambah tinggi garis */
+          margin-bottom: 8pt; /* Tambah jarak bawah */
+          width: 70%; /* Perkecil lebar garis */
+          margin-left: auto; /* Pusatkan */
+          margin-right: auto;
+        }
+        /* Tambahkan page break antar bagian jika perlu */
+        .bukti-info {
+          page-break-inside: avoid;
+        }
+        /* Pastikan tidak ada elemen yang terpotong */
+        .print-bukti-container * {
+          max-height: 100%;
+          overflow: visible;
+        }
+        /* Sesuaikan ukuran font untuk konsistensi */
+        .kop-surat h1 {
+          font-size: 14pt; /* Perbesar sedikit */
+          margin: 1pt 0;
+        }
+        .kop-surat h2 {
+          font-size: 12pt;
+          margin: 1.5pt 0;
+        }
+        .kop-surat p {
+          font-size: 9pt;
+          margin: 0.8pt 0;
+        }
+        .bukti-header h1 {
+          font-size: 16pt;
+          margin: 0;
+        }
+        .bukti-header p {
+          font-size: 12pt;
+          margin: 1pt 0;
+        }
+        /* Perbaiki spasi untuk alamat yang panjang */
+        .bukti-info p[style*="display: none"] {
+          display: none !important;
+        }
+        /* Pastikan logo tidak terlalu besar */
+        .logo-container img {
+          max-width: 80px;
+          max-height: 80px;
+        }
+        @page {
+          size: A4;
+          margin: 5mm; /* Perkecil margin untuk ruang lebih */
+        }
+      }
+      /* Style untuk field nama yang auto uppercase */
+      .uppercase-input {
+        text-transform: uppercase;
+      }
+      /* Style untuk informasi pendaftaran */
+      .info-pendaftaran {
+        background-color: #e8f4fc;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .info-pendaftaran h2 {
+        color: #2980b9;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Formulir Pendaftaran Siswa Baru</h1>
+      <form id="registrationForm">
+        <!-- Informasi Pendaftaran -->
+        <div class="form-section info-pendaftaran">
+          <h2>Informasi Pendaftaran</h2>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tanggal_pendaftaran">Tanggal Pendaftaran</label>
+                <input
+                  type="date"
+                  id="tanggal_pendaftaran"
+                  name="tanggal_pendaftaran"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="gelombang">Gelombang Pendaftaran</label>
+                <select id="gelombang" name="gelombang" required>
+                  <option value="">-- Pilih Gelombang --</option>
+                  <option value="Gelombang 1">Gelombang 1</option>
+                  <option value="Gelombang 2">Gelombang 2</option>
+                  <option value="Gelombang 3">Gelombang 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Siswa -->
+        <div class="form-section">
+          <h2>Data Siswa</h2>
+          <div class="form-group">
+            <label for="nama">Nama Lengkap</label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="nik">NIK</label>
+                <input type="text" id="nik" name="nik" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="nisn">NISN</label>
+                <input type="text" id="nisn" name="nisn" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tempat_lahir">Tempat Lahir</label>
+                <input
+                  type="text"
+                  id="tempat_lahir"
+                  name="tempat_lahir"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tanggal_lahir">Tanggal Lahir</label>
+                <input
+                  type="date"
+                  id="tanggal_lahir"
+                  name="tanggal_lahir"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="laki-laki"
+                  name="jenis_kelamin"
+                  value="Laki-laki"
+                  required
+                />
+                <label for="laki-laki">Laki-laki</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="perempuan"
+                  name="jenis_kelamin"
+                  value="Perempuan"
+                  required
+                />
+                <label for="perempuan">Perempuan</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="no_hp">No HP</label>
+                <input type="tel" id="no_hp" name="no_hp" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tinggi">Tinggi Badan (cm)</label>
+                <input type="number" id="tinggi" name="tinggi" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="berat">Berat Badan (kg)</label>
+                <input type="number" id="berat" name="berat" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="alamat">Alamat Lengkap</label>
+            <textarea id="alamat" name="alamat" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="no_kk">No KK</label>
+            <input type="text" id="no_kk" name="no_kk" required />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="hobby">Hobby</label>
+                <select id="hobby" name="hobby" required>
+                  <option value="">-- Pilih Hobby --</option>
+                  <option value="Olahraga">Olahraga</option>
+                  <option value="Membaca">Membaca</option>
+                  <option value="Menulis">Menulis</option>
+                  <option value="Menggambar">Menggambar</option>
+                  <option value="Musik">Musik</option>
+                  <option value="Menari">Menari</option>
+                  <option value="Bernyanyi">Bernyanyi</option>
+                  <option value="Memasak">Memasak</option>
+                  <option value="Berkebun">Berkebun</option>
+                  <option value="Fotografi">Fotografi</option>
+                  <option value="Traveling">Traveling</option>
+                  <option value="Game">Game</option>
+                  <option value="Film/Drakor">Film/Drakor</option>
+                  <option value="Koleksi">Koleksi</option>
+                  <option value="Handicraft">Handicraft</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="cita_cita">Cita-cita</label>
+                <select id="cita_cita" name="cita_cita" required>
+                  <option value="">-- Pilih Cita-cita --</option>
+                  <option value="Dokter">Dokter</option>
+                  <option value="Guru/Dosen">Guru/Dosen</option>
+                  <option value="Insinyur">Insinyur</option>
+                  <option value="Programmer">Programmer</option>
+                  <option value="Pengacara">Pengacara</option>
+                  <option value="Polisi/TNI">Polisi/TNI</option>
+                  <option value="Pilot">Pilot</option>
+                  <option value="Akuntan">Akuntan</option>
+                  <option value="Arsitek">Arsitek</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Artis/Selebgram">Artis/Selebgram</option>
+                  <option value="Atlet">Atlet</option>
+                  <option value="Ilmuwan">Ilmuwan</option>
+                  <option value="Jurnalis">Jurnalis</option>
+                  <option value="Desainer">Desainer</option>
+                  <option value="Chef">Chef</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="agama">Agama</label>
+                <select id="agama" name="agama" required>
+                  <option value="">-- Pilih Agama --</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Konghucu">Konghucu</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="asal_sekolah">Asal Sekolah</label>
+                <input
+                  type="text"
+                  id="asal_sekolah"
+                  name="asal_sekolah"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="alamat_sekolah">Alamat Sekolah SMP/MTs</label>
+            <textarea
+              id="alamat_sekolah"
+              name="alamat_sekolah"
+              rows="2"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="jurusan">Pilih Jurusan</label>
+            <select id="jurusan" name="jurusan" required>
+              <option value="">-- Pilih Jurusan --</option>
+              <option value="Teknik Konstruksi dan Perumahan">
+                Teknik Konstruksi dan Perumahan
+              </option>
+              <option value="Teknik Audio Video">Teknik Audio Video</option>
+              <option value="Teknik Instalasi Tenaga Listrik">
+                Teknik Instalasi Tenaga Listrik
+              </option>
+              <option value="Teknik Pemesinan">Teknik Pemesinan</option>
+              <option value="Otomotif - Teknik Kendaraan Ringan">
+                Otomotif - Teknik Kendaraan Ringan
+              </option>
+              <option value="Otomotif - Teknik Bodi Kendaraan Ringan">
+                Otomotif - Teknik Bodi Kendaraan Ringan
+              </option>
+              <option value="Otomotif - Teknik Sepeda Motor">
+                Otomotif - Teknik Sepeda Motor
+              </option>
+              <option value="Teknik Komputer dan Jaringan">
+                Teknik Komputer dan Jaringan
+              </option>
+              <option value="Rekayasa Perangkata Lunak">
+                Rekayasa Perangkata Lunak
+              </option>
+              <option value="Manajemen Perkantoran">
+                Manajemen Perkantoran
+              </option>
+              <option value="AKuntansi">AKuntansi</option>
+              <option value="Bisnis Retail">Bisnis Retail</option>
+              <option value="Desain dan Produksi Busana">
+                Desain dan Produksi Busana
+              </option>
+              <option value="Kuliner">Kuliner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Apakah siswa penerima bantuan?</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="penerima_bantuan_ya"
+                  name="penerima_bantuan"
+                  value="Ya"
+                  onclick="toggleBantuanSection()"
+                />
+                <label for="penerima_bantuan_ya">Ya</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="penerima_bantuan_tidak"
+                  name="penerima_bantuan"
+                  value="Tidak"
+                  onclick="toggleBantuanSection()"
+                  checked
+                />
+                <label for="penerima_bantuan_tidak">Tidak</label>
+              </div>
+            </div>
+          </div>
+          <div id="bantuanSection" class="conditional-section">
+            <div class="form-group">
+              <label for="jenis_kartu">Jenis Kartu</label>
+              <select
+                id="jenis_kartu"
+                name="jenis_kartu"
+                onchange="toggleNomorKartu()"
+              >
+                <option value="">-- Pilih Jenis Kartu --</option>
+                <option value="KIP">KIP (Kartu Indonesia Pintar)</option>
+                <option value="KKS">KKS (Kartu Keluarga Sejahtera)</option>
+                <option value="KPS">KPS (Kartu Perlindungan Sosial)</option>
+              </select>
+            </div>
+            <div id="nomorKartuSection" class="conditional-section">
+              <div class="form-group">
+                <label for="nomor_kartu">Nomor Kartu</label>
+                <input type="text" id="nomor_kartu" name="nomor_kartu" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Ayah -->
+        <div class="form-section">
+          <h2>Data Ayah</h2>
+          <div class="form-group">
+            <label for="nama_ayah">Nama Ayah</label>
+            <input
+              type="text"
+              id="nama_ayah"
+              name="nama_ayah"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="nik_ayah">NIK Ayah</label>
+                <input type="text" id="nik_ayah" name="nik_ayah" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="pekerjaan_ayah">Pekerjaan Ayah</label>
+                <input
+                  type="text"
+                  id="pekerjaan_ayah"
+                  name="pekerjaan_ayah"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tempat_lahir_ayah">Tempat Lahir Ayah</label>
+                <input
+                  type="text"
+                  id="tempat_lahir_ayah"
+                  name="tempat_lahir_ayah"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tanggal_lahir_ayah">Tanggal Lahir Ayah</label>
+                <input
+                  type="date"
+                  id="tanggal_lahir_ayah"
+                  name="tanggal_lahir_ayah"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="no_hp_ayah">No HP Ayah</label>
+                <input type="tel" id="no_hp_ayah" name="no_hp_ayah" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="gaji_ayah">Kisaran Gaji Ayah</label>
+                <select id="gaji_ayah" name="gaji_ayah" required>
+                  <option value="">-- Pilih Kisaran Gaji --</option>
+                  <option value="Tidak berpenghasilan">Tidak berpenghasilan</option>
+                  <option value="<500k">Di bawah 500 ribu</option>
+                  <option value="500k-990k">500 ribu - 990 ribu</option>
+                  <option value="1jt-2jt">1 juta - 2 juta</option>
+                  <option value="2jt-4jt">2 juta - 4 juta</option>
+                  <option value="4jt-7jt">4 juta - 7 juta</option>
+                  <option value="7jt-10jt">7 juta - 10 juta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Ibu -->
+        <div class="form-section">
+          <h2>Data Ibu</h2>
+          <div class="form-group">
+            <label for="nama_ibu">Nama Ibu</label>
+            <input
+              type="text"
+              id="nama_ibu"
+              name="nama_ibu"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="nik_ibu">NIK Ibu</label>
+                <input type="text" id="nik_ibu" name="nik_ibu" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+                <input
+                  type="text"
+                  id="pekerjaan_ibu"
+                  name="pekerjaan_ibu"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tempat_lahir_ibu">Tempat Lahir Ibu</label>
+                <input
+                  type="text"
+                  id="tempat_lahir_ibu"
+                  name="tempat_lahir_ibu"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="tanggal_lahir_ibu">Tanggal Lahir Ibu</label>
+                <input
+                  type="date"
+                  id="tanggal_lahir_ibu"
+                  name="tanggal_lahir_ibu"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="no_hp_ibu">No HP Ibu</label>
+                <input type="tel" id="no_hp_ibu" name="no_hp_ibu" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="gaji_ibu">Kisaran Gaji Ibu</label>
+                <select id="gaji_ibu" name="gaji_ibu" required>
+                  <option value="">-- Pilih Kisaran Gaji --</option>
+                  <option value="Tidak berpenghasilan">Tidak berpenghasilan</option>
+                  <option value="<500k">Di bawah 500 ribu</option>
+                  <option value="500k-990k">500 ribu - 990 ribu</option>
+                  <option value="1jt-2jt">1 juta - 2 juta</option>
+                  <option value="2jt-4jt">2 juta - 4 juta</option>
+                  <option value="4jt-7jt">4 juta - 7 juta</option>
+                  <option value="7jt-10jt">7 juta - 10 juta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Wali -->
+        <div class="form-section">
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="ada_wali"
+              name="ada_wali"
+              onclick="toggleWali()"
+            />
+            <label for="ada_wali">Ada Wali</label>
+          </div>
+          <div id="wali_section" class="wali-section">
+            <h2>Data Wali</h2>
+            <div class="form-group">
+              <label for="nama_wali">Nama Wali</label>
+              <input
+                type="text"
+                id="nama_wali"
+                name="nama_wali"
+                class="uppercase-input"
+              />
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="nik_wali">NIK Wali</label>
+                  <input type="text" id="nik_wali" name="nik_wali" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="pekerjaan_wali">Pekerjaan Wali</label>
+                  <input
+                    type="text"
+                    id="pekerjaan_wali"
+                    name="pekerjaan_wali"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="tempat_lahir_wali">Tempat Lahir Wali</label>
+                  <input
+                    type="text"
+                    id="tempat_lahir_wali"
+                    name="tempat_lahir_wali"
+                    class="uppercase-input"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="tanggal_lahir_wali">Tanggal Lahir Wali</label>
+                  <input
+                    type="date"
+                    id="tanggal_lahir_wali"
+                    name="tanggal_lahir_wali"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="no_hp_wali">No HP Wali</label>
+                  <input type="tel" id="no_hp_wali" name="no_hp_wali" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="gaji_wali">Kisaran Gaji Wali</label>
+                  <select id="gaji_wali" name="gaji_wali">
+                    <option value="">-- Pilih Kisaran Gaji --</option>
+                    <option value="Tidak berpenghasilan">
+                      Tidak berpenghasilan
+                    </option>
+                    <option value="<500k">Di bawah 500 ribu</option>
+                    <option value="500k-990k">500 ribu - 990 ribu</option>
+                    <option value="1jt-2jt">1 juta - 2 juta</option>
+                    <option value="2jt-4jt">2 juta - 4 juta</option>
+                    <option value="4jt-7jt">4 juta - 7 juta</option>
+                    <option value="7jt-10jt">7 juta - 10 juta</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
+        <button type="button" class="btn-dashboard" id="goToDashboard">
+          Lihat Dashboard
+        </button>
+      </form>
+    </div>
+    <!-- Bukti Pendaftaran -->
+    <div id="buktiPendaftaran" class="bukti-container">
+      <!-- Kop Surat -->
+      <div class="kop-surat">
+        <div class="logo-container">
+          <img
+            src="https://z-cdn-media.chatglm.cn/files/0cc22012-4ac1-4479-9315-63ad02fbb77b_LOGO%20SMK%20PUTRA%20ANDA.jpg?auth_key=1788075521-5d186ca97795460687605ffd71b19139-0-b42b39a6661a80cb99c9157a3c66a964"
+            alt="Logo SMK Putra Anda"
+          />
+        </div>
+        <div class="kop-text">
+          <h1>YAYASAN PENDIDIKAN PUTRA ANDA SUMATERA UTARA</h1>
+          <h2>SEKOLAH MENENGAH KEJURUAN (SMK) PUTRA ANDA BINJAI</h2>
+          <p>Jl. W.R Mongonsidi no.22 Kode Pos. 20714</p>
+          <p>Telp. (061) 8827666, (061) 8823746 Fax. (061) 8827666</p>
+          <p>E-mail: smkputraanda11@gmail.com</p>
+          <p>
+            NDS: 52007150404 &nbsp;&nbsp; NPSN: 10211380 &nbsp;&nbsp; NSS:
+            72.4.61.01.001
+          </p>
+        </div>
+      </div>
+      <div class="bukti-header">
+        <h1>BUKTI PENDAFTARAN SISWA BARU</h1>
+        <p>Tahun Ajaran 2026/2027</p>
+      </div>
+      <div class="two-column">
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Informasi Pendaftaran</h2>
+            <p><strong>ID Pendaftaran:</strong> <span id="bukti_id"></span></p>
+            <p>
+              <strong>Tanggal Pendaftaran:</strong>
+              <span id="bukti_tanggal"></span>
+            </p>
+            <p>
+              <strong>Gelombang:</strong> <span id="bukti_gelombang"></span>
+            </p>
+          </div>
+          <div class="bukti-info">
+            <h2>Data Siswa</h2>
+            <p><strong>Nama Lengkap:</strong> <span id="bukti_nama"></span></p>
+            <p><strong>NIK:</strong> <span id="bukti_nik"></span></p>
+            <p><strong>NISN:</strong> <span id="bukti_nisn"></span></p>
+            <p>
+              <strong>Jenis Kelamin:</strong>
+              <span id="bukti_jenis_kelamin"></span>
+            </p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="bukti_ttl"></span>
+            </p>
+            <p><strong>No HP:</strong> <span id="bukti_hp"></span></p>
+            <p><strong>Email:</strong> <span id="bukti_email"></span></p>
+            <p>
+              <strong>Tinggi Badan:</strong> <span id="bukti_tinggi"></span> cm
+            </p>
+            <p>
+              <strong>Berat Badan:</strong> <span id="bukti_berat"></span> kg
+            </p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Siswa (Lanjutan)</h2>
+            <p><strong>Alamat:</strong> <span id="bukti_alamat"></span></p>
+            <p><strong>No KK:</strong> <span id="bukti_kk"></span></p>
+            <p><strong>Hobby:</strong> <span id="bukti_hobby"></span></p>
+            <p><strong>Cita-cita:</strong> <span id="bukti_cita"></span></p>
+            <p><strong>Agama:</strong> <span id="bukti_agama"></span></p>
+            <p>
+              <strong>Asal Sekolah:</strong>
+              <span id="bukti_asal_sekolah"></span>
+            </p>
+            <p>
+              <strong>Alamat Sekolah:</strong>
+              <span id="bukti_alamat_sekolah"></span>
+            </p>
+            <p>
+              <strong>Jurusan yang Dipilih:</strong>
+              <span id="bukti_jurusan"></span>
+            </p>
+            <p>
+              <strong>Penerima Bantuan:</strong>
+              <span id="bukti_penerima_bantuan"></span>
+            </p>
+            <p id="bukti_jenis_kartu_row" style="display: none">
+              <strong>Jenis Kartu:</strong> <span id="bukti_jenis_kartu"></span>
+            </p>
+            <p id="bukti_nomor_kartu_row" style="display: none">
+              <strong>Nomor Kartu:</strong> <span id="bukti_nomor_kartu"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="two-column">
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Ayah</h2>
+            <p><strong>Nama Ayah:</strong> <span id="bukti_ayah"></span></p>
+            <p><strong>NIK Ayah:</strong> <span id="bukti_nik_ayah"></span></p>
+            <p><strong>No HP Ayah:</strong> <span id="bukti_no_hp_ayah"></span></p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="bukti_ttl_ayah"></span>
+            </p>
+            <p>
+              <strong>Pekerjaan:</strong>
+              <span id="bukti_pekerjaan_ayah"></span>
+            </p>
+            <p>
+              <strong>Kisaran Gaji:</strong> <span id="bukti_gaji_ayah"></span>
+            </p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Ibu</h2>
+            <p><strong>Nama Ibu:</strong> <span id="bukti_ibu"></span></p>
+            <p><strong>NIK Ibu:</strong> <span id="bukti_nik_ibu"></span></p>
+            <p><strong>No HP Ibu:</strong> <span id="bukti_no_hp_ibu"></span></p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="bukti_ttl_ibu"></span>
+            </p>
+            <p>
+              <strong>Pekerjaan:</strong> <span id="bukti_pekerjaan_ibu"></span>
+            </p>
+            <p>
+              <strong>Kisaran Gaji:</strong> <span id="bukti_gaji_ibu"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="bukti_wali_section" class="bukti-info" style="display: none">
+        <h2>Data Wali</h2>
+        <p><strong>Nama Wali:</strong> <span id="bukti_wali"></span></p>
+        <p><strong>NIK Wali:</strong> <span id="bukti_nik_wali"></span></p>
+        <p><strong>No HP Wali:</strong> <span id="bukti_no_hp_wali"></span></p>
+        <p>
+          <strong>Tempat, Tanggal Lahir:</strong>
+          <span id="bukti_ttl_wali"></span>
+        </p>
+        <p>
+          <strong>Pekerjaan:</strong> <span id="bukti_pekerjaan_wali"></span>
+        </p>
+        <p><strong>Kisaran Gaji:</strong> <span id="bukti_gaji_wali"></span></p>
+      </div>
+      <div class="bukti-info">
+        <h2>Keterangan</h2>
+        <p>
+          Bukti pendaftaran ini sebagai tanda bukti bahwa siswa tersebut telah
+          mendaftar sebagai siswa baru di SMK Putra Anda Binjai.
+        </p>
+        <p>
+          Silahkan datang ke sekolah pada tanggal yang telah ditentukan untuk
+          melanjutkan proses pendaftaran.
+        </p>
+      </div>
+      <div class="tanda-tangan">
+        <div class="tanda-tangan-box">
+          <p>Pendaftar,</p>
+          <div class="garis-tanda-tangan"></div>
+          <p id="nama_ttd"></p>
+        </div>
+      </div>
+      <button class="btn-print" onclick="window.print()">
+        Cetak Bukti Pendaftaran
+      </button>
+      <button class="btn-download" id="downloadExcel">
+        Download Data Excel
+      </button>
+      <button class="btn-back" id="backToForm">
+        Kembali ke Form Pendaftaran
+      </button>
+      <button class="btn-dashboard" id="goToDashboardFromBukti">
+        Lihat Dashboard
+      </button>
+    </div>
+    <!-- Dashboard -->
+    <div id="dashboardContainer" class="dashboard-container">
+      <div class="dashboard-header">
+        <div class="dashboard-title">
+          <h1>Dashboard Pendaftaran Siswa Baru</h1>
+        </div>
+        <div class="dashboard-actions">
+          <button class="btn-new" id="newRegistration">Pendaftaran Baru</button>
+          <button class="btn-download" id="downloadAllData">
+            Download Semua Data
+          </button>
+        </div>
+      </div>
+      <div class="stats-container">
+        <div class="stat-card">
+          <h3>Total Pendaftar</h3>
+          <div class="number" id="totalPendaftar">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Pendaftar Hari Ini</h3>
+          <div class="number" id="pendaftarHariIni">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Jurusan Terpopuler</h3>
+          <div class="number" id="jurusanPopuler">-</div>
+        </div>
+        <div class="stat-card">
+          <h3>Penerima Bantuan</h3>
+          <div class="number" id="penerimaBantuan">0</div>
+        </div>
+      </div>
+      <div class="table-container">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>ID Pendaftaran</th>
+              <th>Tanggal</th>
+              <th>Gelombang</th>
+              <th>Nama Siswa</th>
+              <th>NIK</th>
+              <th>NISN</th>
+              <th>Jurusan</th>
+              <th>Penerima Bantuan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Data akan diisi oleh JavaScript -->
+          </tbody>
+        </table>
+        <div id="emptyState" class="empty-state" style="display: none">
+          <p>Belum ada data pendaftar</p>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Form -->
+    <div id="editFormContainer" class="edit-form-container">
+      <div class="edit-form-header">
+        <div class="edit-form-title">
+          <h1>Edit Data Siswa</h1>
+        </div>
+        <div class="edit-form-actions">
+          <button class="btn-cancel" id="cancelEdit">Batal</button>
+          <button class="btn-save" id="saveEdit">Simpan Perubahan</button>
+        </div>
+      </div>
+      <form id="editForm">
+        <!-- Hidden field for ID -->
+        <input type="hidden" id="edit_id_pendaftaran" name="id_pendaftaran" />
+        <!-- Informasi Pendaftaran -->
+        <div class="form-section info-pendaftaran">
+          <h2>Informasi Pendaftaran</h2>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tanggal_pendaftaran"
+                  >Tanggal Pendaftaran</label
+                >
+                <input
+                  type="date"
+                  id="edit_tanggal_pendaftaran"
+                  name="tanggal_pendaftaran"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_gelombang">Gelombang Pendaftaran</label>
+                <select id="edit_gelombang" name="gelombang" required>
+                  <option value="">-- Pilih Gelombang --</option>
+                  <option value="Gelombang 1">Gelombang 1</option>
+                  <option value="Gelombang 2">Gelombang 2</option>
+                  <option value="Gelombang 3">Gelombang 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Siswa -->
+        <div class="form-section">
+          <h2>Data Siswa</h2>
+          <div class="form-group">
+            <label for="edit_nama">Nama Lengkap</label>
+            <input
+              type="text"
+              id="edit_nama"
+              name="nama"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_nik">NIK</label>
+                <input type="text" id="edit_nik" name="nik" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_nisn">NISN</label>
+                <input type="text" id="edit_nisn" name="nisn" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tempat_lahir">Tempat Lahir</label>
+                <input
+                  type="text"
+                  id="edit_tempat_lahir"
+                  name="tempat_lahir"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tanggal_lahir">Tanggal Lahir</label>
+                <input
+                  type="date"
+                  id="edit_tanggal_lahir"
+                  name="tanggal_lahir"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="edit_laki-laki"
+                  name="jenis_kelamin"
+                  value="Laki-laki"
+                  required
+                />
+                <label for="edit_laki-laki">Laki-laki</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="edit_perempuan"
+                  name="jenis_kelamin"
+                  value="Perempuan"
+                  required
+                />
+                <label for="edit_perempuan">Perempuan</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_no_hp">No HP</label>
+                <input type="tel" id="edit_no_hp" name="no_hp" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_email">Email</label>
+                <input type="email" id="edit_email" name="email" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tinggi">Tinggi Badan (cm)</label>
+                <input type="number" id="edit_tinggi" name="tinggi" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_berat">Berat Badan (kg)</label>
+                <input type="number" id="edit_berat" name="berat" required />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit_alamat">Alamat Lengkap</label>
+            <textarea
+              id="edit_alamat"
+              name="alamat"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit_no_kk">No KK</label>
+            <input type="text" id="edit_no_kk" name="no_kk" required />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_hobby">Hobby</label>
+                <select id="edit_hobby" name="hobby" required>
+                  <option value="">-- Pilih Hobby --</option>
+                  <option value="Olahraga">Olahraga</option>
+                  <option value="Membaca">Membaca</option>
+                  <option value="Menulis">Menulis</option>
+                  <option value="Menggambar">Menggambar</option>
+                  <option value="Musik">Musik</option>
+                  <option value="Menari">Menari</option>
+                  <option value="Bernyanyi">Bernyanyi</option>
+                  <option value="Memasak">Memasak</option>
+                  <option value="Berkebun">Berkebun</option>
+                  <option value="Fotografi">Fotografi</option>
+                  <option value="Traveling">Traveling</option>
+                  <option value="Game">Game</option>
+                  <option value="Film/Drakor">Film/Drakor</option>
+                  <option value="Koleksi">Koleksi</option>
+                  <option value="Handicraft">Handicraft</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_cita_cita">Cita-cita</label>
+                <select id="edit_cita_cita" name="cita_cita" required>
+                  <option value="">-- Pilih Cita-cita --</option>
+                  <option value="Dokter">Dokter</option>
+                  <option value="Guru/Dosen">Guru/Dosen</option>
+                  <option value="Insinyur">Insinyur</option>
+                  <option value="Programmer">Programmer</option>
+                  <option value="Pengacara">Pengacara</option>
+                  <option value="Polisi/TNI">Polisi/TNI</option>
+                  <option value="Pilot">Pilot</option>
+                  <option value="Akuntan">Akuntan</option>
+                  <option value="Arsitek">Arsitek</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Artis/Selebgram">Artis/Selebgram</option>
+                  <option value="Atlet">Atlet</option>
+                  <option value="Ilmuwan">Ilmuwan</option>
+                  <option value="Jurnalis">Jurnalis</option>
+                  <option value="Desainer">Desainer</option>
+                  <option value="Chef">Chef</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_agama">Agama</label>
+                <select id="edit_agama" name="agama" required>
+                  <option value="">-- Pilih Agama --</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Konghucu">Konghucu</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_asal_sekolah">Asal Sekolah</label>
+                <input
+                  type="text"
+                  id="edit_asal_sekolah"
+                  name="asal_sekolah"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit_alamat_sekolah">Alamat Sekolah SMP/MTs</label>
+            <textarea
+              id="edit_alamat_sekolah"
+              name="alamat_sekolah"
+              rows="2"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit_jurusan">Pilih Jurusan</label>
+            <select id="edit_jurusan" name="jurusan" required>
+              <option value="">-- Pilih Jurusan --</option>
+              <option value="Teknik Konstruksi dan Perumahan">
+                Teknik Konstruksi dan Perumahan
+              </option>
+              <option value="Teknik Audio Video">Teknik Audio Video</option>
+              <option value="Teknik Instalasi Tenaga Listrik">
+                Teknik Instalasi Tenaga Listrik
+              </option>
+              <option value="Teknik Pemesinan">Teknik Pemesinan</option>
+              <option value="Otomotif - Teknik Kendaraan Ringan">
+                Otomotif - Teknik Kendaraan Ringan
+              </option>
+              <option value="Otomotif - Teknik Bodi Kendaraan Ringan">
+                Otomotif - Teknik Bodi Kendaraan Ringan
+              </option>
+              <option value="Otomotif - Teknik Sepeda Motor">
+                Otomotif - Teknik Sepeda Motor
+              </option>
+              <option value="Teknik Komputer dan Jaringan">
+                Teknik Komputer dan Jaringan
+              </option>
+              <option value="Rekayasa Perangkata Lunak">
+                Rekayasa Perangkata Lunak
+              </option>
+              <option value="Manajemen Perkantoran">
+                Manajemen Perkantoran
+              </option>
+              <option value="AKuntansi">AKuntansi</option>
+              <option value="Bisnis Retail">Bisnis Retail</option>
+              <option value="Desain dan Produksi Busana">
+                Desain dan Produksi Busana
+              </option>
+              <option value="Kuliner">Kuliner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Apakah siswa penerima bantuan?</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="edit_penerima_bantuan_ya"
+                  name="penerima_bantuan"
+                  value="Ya"
+                  onclick="toggleEditBantuanSection()"
+                />
+                <label for="edit_penerima_bantuan_ya">Ya</label>
+              </div>
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="edit_penerima_bantuan_tidak"
+                  name="penerima_bantuan"
+                  value="Tidak"
+                  onclick="toggleEditBantuanSection()"
+                />
+                <label for="edit_penerima_bantuan_tidak">Tidak</label>
+              </div>
+            </div>
+          </div>
+          <div id="edit_bantuanSection" class="conditional-section">
+            <div class="form-group">
+              <label for="edit_jenis_kartu">Jenis Kartu</label>
+              <select
+                id="edit_jenis_kartu"
+                name="jenis_kartu"
+                onchange="toggleEditNomorKartu()"
+              >
+                <option value="">-- Pilih Jenis Kartu --</option>
+                <option value="KIP">KIP (Kartu Indonesia Pintar)</option>
+                <option value="KKS">KKS (Kartu Keluarga Sejahtera)</option>
+                <option value="KPS">KPS (Kartu Perlindungan Sosial)</option>
+              </select>
+            </div>
+            <div id="edit_nomorKartuSection" class="conditional-section">
+              <div class="form-group">
+                <label for="edit_nomor_kartu">Nomor Kartu</label>
+                <input type="text" id="edit_nomor_kartu" name="nomor_kartu" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Ayah -->
+        <div class="form-section">
+          <h2>Data Ayah</h2>
+          <div class="form-group">
+            <label for="edit_nama_ayah">Nama Ayah</label>
+            <input
+              type="text"
+              id="edit_nama_ayah"
+              name="nama_ayah"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_nik_ayah">NIK Ayah</label>
+                <input
+                  type="text"
+                  id="edit_nik_ayah"
+                  name="nik_ayah"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_pekerjaan_ayah">Pekerjaan Ayah</label>
+                <input
+                  type="text"
+                  id="edit_pekerjaan_ayah"
+                  name="pekerjaan_ayah"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tempat_lahir_ayah">Tempat Lahir Ayah</label>
+                <input
+                  type="text"
+                  id="edit_tempat_lahir_ayah"
+                  name="tempat_lahir_ayah"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tanggal_lahir_ayah">Tanggal Lahir Ayah</label>
+                <input
+                  type="date"
+                  id="edit_tanggal_lahir_ayah"
+                  name="tanggal_lahir_ayah"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_no_hp_ayah">No HP Ayah</label>
+                <input type="tel" id="edit_no_hp_ayah" name="no_hp_ayah" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_gaji_ayah">Kisaran Gaji Ayah</label>
+                <select id="edit_gaji_ayah" name="gaji_ayah" required>
+                  <option value="">-- Pilih Kisaran Gaji --</option>
+                  <option value="Tidak berpenghasilan">Tidak berpenghasilan</option>
+                  <option value="<500k">Di bawah 500 ribu</option>
+                  <option value="500k-990k">500 ribu - 990 ribu</option>
+                  <option value="1jt-2jt">1 juta - 2 juta</option>
+                  <option value="2jt-4jt">2 juta - 4 juta</option>
+                  <option value="4jt-7jt">4 juta - 7 juta</option>
+                  <option value="7jt-10jt">7 juta - 10 juta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Ibu -->
+        <div class="form-section">
+          <h2>Data Ibu</h2>
+          <div class="form-group">
+            <label for="edit_nama_ibu">Nama Ibu</label>
+            <input
+              type="text"
+              id="edit_nama_ibu"
+              name="nama_ibu"
+              class="uppercase-input"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_nik_ibu">NIK Ibu</label>
+                <input type="text" id="edit_nik_ibu" name="nik_ibu" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_pekerjaan_ibu">Pekerjaan Ibu</label>
+                <input
+                  type="text"
+                  id="edit_pekerjaan_ibu"
+                  name="pekerjaan_ibu"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tempat_lahir_ibu">Tempat Lahir Ibu</label>
+                <input
+                  type="text"
+                  id="edit_tempat_lahir_ibu"
+                  name="tempat_lahir_ibu"
+                  class="uppercase-input"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_tanggal_lahir_ibu">Tanggal Lahir Ibu</label>
+                <input
+                  type="date"
+                  id="edit_tanggal_lahir_ibu"
+                  name="tanggal_lahir_ibu"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_no_hp_ibu">No HP Ibu</label>
+                <input type="tel" id="edit_no_hp_ibu" name="no_hp_ibu" required />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label for="edit_gaji_ibu">Kisaran Gaji Ibu</label>
+                <select id="edit_gaji_ibu" name="gaji_ibu" required>
+                  <option value="">-- Pilih Kisaran Gaji --</option>
+                  <option value="Tidak berpenghasilan">Tidak berpenghasilan</option>
+                  <option value="<500k">Di bawah 500 ribu</option>
+                  <option value="500k-990k">500 ribu - 990 ribu</option>
+                  <option value="1jt-2jt">1 juta - 2 juta</option>
+                  <option value="2jt-4jt">2 juta - 4 juta</option>
+                  <option value="4jt-7jt">4 juta - 7 juta</option>
+                  <option value="7jt-10jt">7 juta - 10 juta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Data Wali -->
+        <div class="form-section">
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="edit_ada_wali"
+              name="ada_wali"
+              onclick="toggleEditWali()"
+            />
+            <label for="edit_ada_wali">Ada Wali</label>
+          </div>
+          <div id="edit_wali_section" class="wali-section">
+            <h2>Data Wali</h2>
+            <div class="form-group">
+              <label for="edit_nama_wali">Nama Wali</label>
+              <input
+                type="text"
+                id="edit_nama_wali"
+                name="nama_wali"
+                class="uppercase-input"
+              />
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_nik_wali">NIK Wali</label>
+                  <input type="text" id="edit_nik_wali" name="nik_wali" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_pekerjaan_wali">Pekerjaan Wali</label>
+                  <input
+                    type="text"
+                    id="edit_pekerjaan_wali"
+                    name="pekerjaan_wali"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_tempat_lahir_wali">Tempat Lahir Wali</label>
+                  <input
+                    type="text"
+                    id="edit_tempat_lahir_wali"
+                    name="tempat_lahir_wali"
+                    class="uppercase-input"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_tanggal_lahir_wali"
+                    >Tanggal Lahir Wali</label
+                  >
+                  <input
+                    type="date"
+                    id="edit_tanggal_lahir_wali"
+                    name="tanggal_lahir_wali"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_no_hp_wali">No HP Wali</label>
+                  <input type="tel" id="edit_no_hp_wali" name="no_hp_wali" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="edit_gaji_wali">Kisaran Gaji Wali</label>
+                  <select id="edit_gaji_wali" name="gaji_wali">
+                    <option value="">-- Pilih Kisaran Gaji --</option>
+                    <option value="Tidak berpenghasilan">
+                      Tidak berpenghasilan
+                    </option>
+                    <option value="<500k">Di bawah 500 ribu</option>
+                    <option value="500k-990k">500 ribu - 990 ribu</option>
+                    <option value="1jt-2jt">1 juta - 2 juta</option>
+                    <option value="2jt-4jt">2 juta - 4 juta</option>
+                    <option value="4jt-7jt">4 juta - 7 juta</option>
+                    <option value="7jt-10jt">7 juta - 10 juta</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Modal Detail Siswa -->
+    <div id="detailModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+          <h2>Detail Data Siswa</h2>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Detail data akan diisi oleh JavaScript -->
+        </div>
+      </div>
+    </div>
+    <!-- Print Bukti Container (Hidden by default) -->
+    <div id="printBuktiContainer" class="print-bukti-container">
+      <!-- Kop Surat -->
+      <div class="kop-surat">
+        <div class="logo-container">
+          <img
+            src="https://z-cdn-media.chatglm.cn/files/0cc22012-4ac1-4479-9315-63ad02fbb77b_LOGO%20SMK%20PUTRA%20ANDA.jpg?auth_key=1788075521-5d186ca97795460687605ffd71b19139-0-b42b39a6661a80cb99c9157a3c66a964"
+            alt="Logo SMK Putra Anda"
+          />
+        </div>
+        <div class="kop-text">
+          <h1>YAYASAN PENDIDIKAN PUTRA ANDA SUMATERA UTARA</h1>
+          <h2>SEKOLAH MENENGAH KEJURUAN (SMK) PUTRA ANDA BINJAI</h2>
+          <p>Jl. W.R Mongonsidi no.22 Kode Pos. 20714</p>
+          <p>Telp. (061) 8827666, (061) 8823746 Fax. (061) 8827666</p>
+          <p>E-mail: smkputraanda11@gmail.com</p>
+          <p>
+            NDS: 52007150404 &nbsp;&nbsp; NPSN: 10211380 &nbsp;&nbsp; NSS:
+            72.4.61.01.001
+          </p>
+        </div>
+      </div>
+      <div class="bukti-header">
+        <h1>BUKTI PENDAFTARAN SISWA BARU</h1>
+        <p>Tahun Ajaran 2026/2027</p>
+      </div>
+      <div class="two-column">
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Informasi Pendaftaran</h2>
+            <p>
+              <strong>ID Pendaftaran:</strong> <span id="print_bukti_id"></span>
+            </p>
+            <p>
+              <strong>Tanggal Pendaftaran:</strong>
+              <span id="print_bukti_tanggal"></span>
+            </p>
+            <p>
+              <strong>Gelombang:</strong>
+              <span id="print_bukti_gelombang"></span>
+            </p>
+          </div>
+          <div class="bukti-info">
+            <h2>Data Siswa</h2>
+            <p>
+              <strong>Nama Lengkap:</strong> <span id="print_bukti_nama"></span>
+            </p>
+            <p><strong>NIK:</strong> <span id="print_bukti_nik"></span></p>
+            <p><strong>NISN:</strong> <span id="print_bukti_nisn"></span></p>
+            <p>
+              <strong>Jenis Kelamin:</strong>
+              <span id="print_bukti_jenis_kelamin"></span>
+            </p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="print_bukti_ttl"></span>
+            </p>
+            <p><strong>No HP:</strong> <span id="print_bukti_hp"></span></p>
+            <p><strong>Email:</strong> <span id="print_bukti_email"></span></p>
+            <p>
+              <strong>Tinggi Badan:</strong>
+              <span id="print_bukti_tinggi"></span> cm
+            </p>
+            <p>
+              <strong>Berat Badan:</strong>
+              <span id="print_bukti_berat"></span> kg
+            </p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Siswa (Lanjutan)</h2>
+            <p>
+              <strong>Alamat:</strong> <span id="print_bukti_alamat"></span>
+            </p>
+            <p><strong>No KK:</strong> <span id="print_bukti_kk"></span></p>
+            <p><strong>Hobby:</strong> <span id="print_bukti_hobby"></span></p>
+            <p>
+              <strong>Cita-cita:</strong> <span id="print_bukti_cita"></span>
+            </p>
+            <p><strong>Agama:</strong> <span id="print_bukti_agama"></span></p>
+            <p>
+              <strong>Asal Sekolah:</strong>
+              <span id="print_bukti_asal_sekolah"></span>
+            </p>
+            <p>
+              <strong>Alamat Sekolah:</strong>
+              <span id="print_bukti_alamat_sekolah"></span>
+            </p>
+            <p>
+              <strong>Jurusan yang Dipilih:</strong>
+              <span id="print_bukti_jurusan"></span>
+            </p>
+            <p>
+              <strong>Penerima Bantuan:</strong>
+              <span id="print_bukti_penerima_bantuan"></span>
+            </p>
+            <p id="print_bukti_jenis_kartu_row" style="display: none">
+              <strong>Jenis Kartu:</strong>
+              <span id="print_bukti_jenis_kartu"></span>
+            </p>
+            <p id="print_bukti_nomor_kartu_row" style="display: none">
+              <strong>Nomor Kartu:</strong>
+              <span id="print_bukti_nomor_kartu"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="two-column">
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Ayah</h2>
+            <p>
+              <strong>Nama Ayah:</strong> <span id="print_bukti_ayah"></span>
+            </p>
+            <p>
+              <strong>NIK Ayah:</strong> <span id="print_bukti_nik_ayah"></span>
+            </p>
+            <p>
+              <strong>No HP Ayah:</strong> <span id="print_bukti_no_hp_ayah"></span>
+            </p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="print_bukti_ttl_ayah"></span>
+            </p>
+            <p>
+              <strong>Pekerjaan:</strong>
+              <span id="print_bukti_pekerjaan_ayah"></span>
+            </p>
+            <p>
+              <strong>Kisaran Gaji:</strong>
+              <span id="print_bukti_gaji_ayah"></span>
+            </p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="bukti-info">
+            <h2>Data Ibu</h2>
+            <p><strong>Nama Ibu:</strong> <span id="print_bukti_ibu"></span></p>
+            <p>
+              <strong>NIK Ibu:</strong> <span id="print_bukti_nik_ibu"></span>
+            </p>
+            <p>
+              <strong>No HP Ibu:</strong> <span id="print_bukti_no_hp_ibu"></span>
+            </p>
+            <p>
+              <strong>Tempat, Tanggal Lahir:</strong>
+              <span id="print_bukti_ttl_ibu"></span>
+            </p>
+            <p>
+              <strong>Pekerjaan:</strong>
+              <span id="print_bukti_pekerjaan_ibu"></span>
+            </p>
+            <p>
+              <strong>Kisaran Gaji:</strong>
+              <span id="print_bukti_gaji_ibu"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        id="print_bukti_wali_section"
+        class="bukti-info"
+        style="display: none"
+      >
+        <h2>Data Wali</h2>
+        <p><strong>Nama Wali:</strong> <span id="print_bukti_wali"></span></p>
+        <p>
+          <strong>NIK Wali:</strong> <span id="print_bukti_nik_wali"></span>
+        </p>
+        <p>
+          <strong>No HP Wali:</strong> <span id="print_bukti_no_hp_wali"></span>
+        </p>
+        <p>
+          <strong>Tempat, Tanggal Lahir:</strong>
+          <span id="print_bukti_ttl_wali"></span>
+        </p>
+        <p>
+          <strong>Pekerjaan:</strong>
+          <span id="print_bukti_pekerjaan_wali"></span>
+        </p>
+        <p>
+          <strong>Kisaran Gaji:</strong>
+          <span id="print_bukti_gaji_wali"></span>
+        </p>
+      </div>
+      <div class="bukti-info">
+        <h2>Keterangan</h2>
+        <p>
+          Bukti pendaftaran ini sebagai tanda bukti bahwa siswa tersebut telah
+          mendaftar sebagai siswa baru di SMK Putra Anda Binjai.
+        </p>
+        <p>
+          Silahkan datang ke sekolah pada tanggal yang telah ditentukan untuk
+          melanjutkan proses pendaftaran.
+        </p>
+      </div>
+      <div class="tanda-tangan">
+        <div class="tanda-tangan-box">
+          <p>Pendaftar,</p>
+          <div class="garis-tanda-tangan"></div>
+          <p id="print_nama_ttd"></p>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="notification">Data berhasil disimpan!</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+      // Fungsi untuk toggle section wali
+      function toggleWali() {
+        const checkbox = document.getElementById("ada_wali");
+        const waliSection = document.getElementById("wali_section");
+        if (checkbox.checked) {
+          waliSection.classList.add("active");
+          // Make wali fields required when checkbox is checked
+          document.getElementById("nama_wali").required = true;
+          document.getElementById("nik_wali").required = true;
+          document.getElementById("pekerjaan_wali").required = true;
+          document.getElementById("tempat_lahir_wali").required = true;
+          document.getElementById("tanggal_lahir_wali").required = true;
+          document.getElementById("no_hp_wali").required = true;
+          document.getElementById("gaji_wali").required = true;
+        } else {
+          waliSection.classList.remove("active");
+          // Remove required attribute when checkbox is not checked
+          document.getElementById("nama_wali").required = false;
+          document.getElementById("nik_wali").required = false;
+          document.getElementById("pekerjaan_wali").required = false;
+          document.getElementById("tempat_lahir_wali").required = false;
+          document.getElementById("tanggal_lahir_wali").required = false;
+          document.getElementById("no_hp_wali").required = false;
+          document.getElementById("gaji_wali").required = false;
+        }
+      }
+      // Fungsi untuk toggle section wali di form edit
+      function toggleEditWali() {
+        const checkbox = document.getElementById("edit_ada_wali");
+        const waliSection = document.getElementById("edit_wali_section");
+        if (checkbox.checked) {
+          waliSection.classList.add("active");
+          // Make wali fields required when checkbox is checked
+          document.getElementById("edit_nama_wali").required = true;
+          document.getElementById("edit_nik_wali").required = true;
+          document.getElementById("edit_pekerjaan_wali").required = true;
+          document.getElementById("edit_tempat_lahir_wali").required = true;
+          document.getElementById("edit_tanggal_lahir_wali").required = true;
+          document.getElementById("edit_no_hp_wali").required = true;
+          document.getElementById("edit_gaji_wali").required = true;
+        } else {
+          waliSection.classList.remove("active");
+          // Remove required attribute when checkbox is not checked
+          document.getElementById("edit_nama_wali").required = false;
+          document.getElementById("edit_nik_wali").required = false;
+          document.getElementById("edit_pekerjaan_wali").required = false;
+          document.getElementById("edit_tempat_lahir_wali").required = false;
+          document.getElementById("edit_tanggal_lahir_wali").required = false;
+          document.getElementById("edit_no_hp_wali").required = false;
+          document.getElementById("edit_gaji_wali").required = false;
+        }
+      }
+      // Fungsi untuk toggle section bantuan
+      function toggleBantuanSection() {
+        const penerimaBantuanYa = document.getElementById(
+          "penerima_bantuan_ya"
+        );
+        const bantuanSection = document.getElementById("bantuanSection");
+        if (penerimaBantuanYa.checked) {
+          bantuanSection.classList.add("active");
+          document.getElementById("jenis_kartu").required = true;
+        } else {
+          bantuanSection.classList.remove("active");
+          document.getElementById("jenis_kartu").required = false;
+          document.getElementById("nomor_kartu").required = false;
+          document
+            .getElementById("nomorKartuSection")
+            .classList.remove("active");
+        }
+      }
+      // Fungsi untuk toggle section bantuan di form edit
+      function toggleEditBantuanSection() {
+        const penerimaBantuanYa = document.getElementById(
+          "edit_penerima_bantuan_ya"
+        );
+        const bantuanSection = document.getElementById("edit_bantuanSection");
+        if (penerimaBantuanYa.checked) {
+          bantuanSection.classList.add("active");
+          document.getElementById("edit_jenis_kartu").required = true;
+        } else {
+          bantuanSection.classList.remove("active");
+          document.getElementById("edit_jenis_kartu").required = false;
+          document.getElementById("edit_nomor_kartu").required = false;
+          document
+            .getElementById("edit_nomorKartuSection")
+            .classList.remove("active");
+        }
+      }
+      // Fungsi untuk toggle section nomor kartu
+      function toggleNomorKartu() {
+        const jenisKartu = document.getElementById("jenis_kartu");
+        const nomorKartuSection = document.getElementById("nomorKartuSection");
+        if (jenisKartu.value) {
+          nomorKartuSection.classList.add("active");
+          document.getElementById("nomor_kartu").required = true;
+        } else {
+          nomorKartuSection.classList.remove("active");
+          document.getElementById("nomor_kartu").required = false;
+        }
+      }
+      // Fungsi untuk toggle section nomor kartu di form edit
+      function toggleEditNomorKartu() {
+        const jenisKartu = document.getElementById("edit_jenis_kartu");
+        const nomorKartuSection = document.getElementById(
+          "edit_nomorKartuSection"
+        );
+        if (jenisKartu.value) {
+          nomorKartuSection.classList.add("active");
+          document.getElementById("edit_nomor_kartu").required = true;
+        } else {
+          nomorKartuSection.classList.remove("active");
+          document.getElementById("edit_nomor_kartu").required = false;
+        }
+      }
+      // Fungsi untuk generate ID pendaftaran
+      function generateRegistrationId() {
+        const now = new Date();
+        const year = now.getFullYear().toString();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0");
+        const day = now.getDate().toString().padStart(2, "0");
+        const random = Math.floor(1000 + Math.random() * 9000).toString();
+        return `REG-${year}${month}${day}-${random}`;
+      }
+      // Fungsi untuk format tanggal
+      function formatDate(date) {
+        const options = { day: "numeric", month: "long", year: "numeric" };
+        return new Date(date).toLocaleDateString("id-ID", options);
+      }
+      // Fungsi untuk menampilkan notifikasi
+      function showNotification(message) {
+        const notification = document.getElementById("notification");
+        notification.textContent = message;
+        notification.style.display = "block";
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, 3000);
+      }
+      // Fungsi untuk mengubah input menjadi uppercase
+      function setupUppercaseInputs() {
+        const uppercaseInputs = document.querySelectorAll(".uppercase-input");
+        uppercaseInputs.forEach((input) => {
+          input.addEventListener("input", function () {
+            this.value = this.value.toUpperCase();
+          });
+        });
+      }
+      // Fungsi untuk mengosongkan form
+      function resetForm() {
+        document.getElementById("registrationForm").reset();
+        // Reset wali section
+        document.getElementById("wali_section").classList.remove("active");
+        document.getElementById("ada_wali").checked = false;
+        // Remove required attribute from wali fields
+        document.getElementById("nama_wali").required = false;
+        document.getElementById("nik_wali").required = false;
+        document.getElementById("pekerjaan_wali").required = false;
+        document.getElementById("tempat_lahir_wali").required = false;
+        document.getElementById("tanggal_lahir_wali").required = false;
+        document.getElementById("no_hp_wali").required = false;
+        document.getElementById("gaji_wali").required = false;
+        // Reset bantuan section
+        document.getElementById("bantuanSection").classList.remove("active");
+        document.getElementById("jenis_kartu").required = false;
+        document.getElementById("nomor_kartu").required = false;
+        document.getElementById("nomorKartuSection").classList.remove("active");
+      }
+      // Fungsi untuk menampilkan dashboard
+      function showDashboard() {
+        // Hide other views
+        document.querySelector(".container").style.display = "none";
+        document.getElementById("buktiPendaftaran").style.display = "none";
+        document.getElementById("editFormContainer").style.display = "none";
+        // Show dashboard
+        document.getElementById("dashboardContainer").style.display = "block";
+        // Load data to dashboard
+        loadDashboardData();
+      }
+      // Fungsi untuk memuat data dashboard
+      function loadDashboardData() {
+        // Get data from localStorage
+        const registrations = JSON.parse(
+          localStorage.getItem("registrations") || "[]"
+        );
+        // Update statistics
+        document.getElementById("totalPendaftar").textContent =
+          registrations.length;
+        // Count today's registrations
+        const today = new Date().toISOString().split("T")[0];
+        const todayRegistrations = registrations.filter(
+          (reg) => reg.tanggal_pendaftaran === today
+        );
+        document.getElementById("pendaftarHariIni").textContent =
+          todayRegistrations.length;
+        // Count penerima bantuan
+        const penerimaBantuanCount = registrations.filter(
+          (reg) => reg.penerima_bantuan === "Ya"
+        ).length;
+        document.getElementById("penerimaBantuan").textContent =
+          penerimaBantuanCount;
+        // Find most popular major
+        const majorCount = {};
+        registrations.forEach((reg) => {
+          majorCount[reg.jurusan] = (majorCount[reg.jurusan] || 0) + 1;
+        });
+        let mostPopular = "-";
+        let maxCount = 0;
+        for (const major in majorCount) {
+          if (majorCount[major] > maxCount) {
+            maxCount = majorCount[major];
+            mostPopular = major;
+          }
+        }
+        document.getElementById("jurusanPopuler").textContent = mostPopular;
+        // Update table
+        const tableBody = document.getElementById("tableBody");
+        const emptyState = document.getElementById("emptyState");
+        if (registrations.length === 0) {
+          tableBody.innerHTML = "";
+          emptyState.style.display = "block";
+        } else {
+          emptyState.style.display = "none";
+          tableBody.innerHTML = registrations
+            .map(
+              (reg) => `
+                    <tr>
+                        <td>${reg.id_pendaftaran}</td>
+                        <td>${formatDate(reg.tanggal_pendaftaran)}</td>
+                        <td>${reg.gelombang}</td>
+                        <td>${reg.nama}</td>
+                        <td>${reg.nik}</td>
+                        <td>${reg.nisn}</td>
+                        <td>${reg.jurusan}</td>
+                        <td>${reg.penerima_bantuan}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-small btn-view" onclick="viewDetail('${
+                                  reg.id_pendaftaran
+                                }')">Lihat</button>
+                                <button class="btn-small btn-edit" onclick="editRegistration('${
+                                  reg.id_pendaftaran
+                                }')">Edit</button>
+                                <button class="btn-small btn-print" onclick="printRegistration('${
+                                  reg.id_pendaftaran
+                                }')">Cetak</button>
+                                <button class="btn-small btn-delete" onclick="deleteRegistration('${
+                                  reg.id_pendaftaran
+                                }')">Hapus</button>
+                            </div>
+                        </td>
+                    </tr>
+                `
+            )
+            .join("");
+        }
+      }
+      // Fungsi untuk melihat detail siswa
+      function viewDetail(id) {
+        const registrations = JSON.parse(
+          localStorage.getItem("registrations") || "[]"
+        );
+        const student = registrations.find((reg) => reg.id_pendaftaran === id);
+        if (student) {
+          const modalBody = document.getElementById("modalBody");
+          let bantuanInfo = "";
+          if (student.penerima_bantuan === "Ya") {
+            bantuanInfo = `
+                        <div class="modal-row">
+                            <div class="modal-label">Jenis Kartu:</div>
+                            <div>${student.jenis_kartu || "-"}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Nomor Kartu:</div>
+                            <div>${student.nomor_kartu || "-"}</div>
+                        </div>
+                    `;
+          }
+          modalBody.innerHTML = `
+                    <div class="modal-section">
+                        <h3>Informasi Pendaftaran</h3>
+                        <div class="modal-row">
+                            <div class="modal-label">ID Pendaftaran:</div>
+                            <div>${student.id_pendaftaran}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Tanggal Pendaftaran:</div>
+                            <div>${formatDate(
+                              student.tanggal_pendaftaran
+                            )}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Gelombang:</div>
+                            <div>${student.gelombang}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Data Siswa</h3>
+                        <div class="modal-row">
+                            <div class="modal-label">Nama Lengkap:</div>
+                            <div>${student.nama}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">NIK:</div>
+                            <div>${student.nik}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">NISN:</div>
+                            <div>${student.nisn}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Jenis Kelamin:</div>
+                            <div>${student.jenis_kelamin}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Tempat, Tanggal Lahir:</div>
+                            <div>${student.tempat_lahir}, ${formatDate(
+            student.tanggal_lahir
+          )}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">No HP:</div>
+                            <div>${student.no_hp}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Email:</div>
+                            <div>${student.email}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Tinggi Badan:</div>
+                            <div>${student.tinggi} cm</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Berat Badan:</div>
+                            <div>${student.berat} kg</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Alamat:</div>
+                            <div>${student.alamat}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">No KK:</div>
+                            <div>${student.no_kk}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Hobby:</div>
+                            <div>${student.hobby}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Cita-cita:</div>
+                            <div>${student.cita_cita}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Agama:</div>
+                            <div>${student.agama}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Asal Sekolah:</div>
+                            <div>${student.asal_sekolah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Alamat Sekolah:</div>
+                            <div>${student.alamat_sekolah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Jurusan yang Dipilih:</div>
+                            <div>${student.jurusan}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Penerima Bantuan:</div>
+                            <div>${student.penerima_bantuan}</div>
+                        </div>
+                        ${bantuanInfo}
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Data Ayah</h3>
+                        <div class="modal-row">
+                            <div class="modal-label">Nama Ayah:</div>
+                            <div>${student.nama_ayah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">NIK Ayah:</div>
+                            <div>${student.nik_ayah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">No HP Ayah:</div>
+                            <div>${student.no_hp_ayah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Tempat, Tanggal Lahir:</div>
+                            <div>${student.tempat_lahir_ayah}, ${formatDate(
+            student.tanggal_lahir_ayah
+          )}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Pekerjaan:</div>
+                            <div>${student.pekerjaan_ayah}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Kisaran Gaji:</div>
+                            <div>${student.gaji_ayah}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Data Ibu</h3>
+                        <div class="modal-row">
+                            <div class="modal-label">Nama Ibu:</div>
+                            <div>${student.nama_ibu}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">NIK Ibu:</div>
+                            <div>${student.nik_ibu}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">No HP Ibu:</div>
+                            <div>${student.no_hp_ibu}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Tempat, Tanggal Lahir:</div>
+                            <div>${student.tempat_lahir_ibu}, ${formatDate(
+            student.tanggal_lahir_ibu
+          )}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Pekerjaan:</div>
+                            <div>${student.pekerjaan_ibu}</div>
+                        </div>
+                        <div class="modal-row">
+                            <div class="modal-label">Kisaran Gaji:</div>
+                            <div>${student.gaji_ibu}</div>
+                        </div>
+                    </div>
+                `;
+          // Add wali data if exists
+          if (student.ada_wali) {
+            modalBody.innerHTML += `
+                        <div class="modal-section">
+                            <h3>Data Wali</h3>
+                            <div class="modal-row">
+                                <div class="modal-label">Nama Wali:</div>
+                                <div>${student.nama_wali || "-"}</div>
+                            </div>
+                            <div class="modal-row">
+                                <div class="modal-label">NIK Wali:</div>
+                                <div>${student.nik_wali || "-"}</div>
+                            </div>
+                            <div class="modal-row">
+                                <div class="modal-label">No HP Wali:</div>
+                                <div>${student.no_hp_wali || "-"}</div>
+                            </div>
+                            <div class="modal-row">
+                                <div class="modal-label">Tempat, Tanggal Lahir:</div>
+                                <div>${
+                                  student.tempat_lahir_wali &&
+                                  student.tanggal_lahir_wali
+                                    ? `${
+                                        student.tempat_lahir_wali
+                                      }, ${formatDate(
+                                        student.tanggal_lahir_wali
+                                      )}`
+                                    : "-"
+                                }</div>
+                            </div>
+                            <div class="modal-row">
+                                <div class="modal-label">Pekerjaan:</div>
+                                <div>${student.pekerjaan_wali || "-"}</div>
+                            </div>
+                            <div class="modal-row">
+                                <div class="modal-label">Kisaran Gaji:</div>
+                                <div>${student.gaji_wali || "-"}</div>
+                            </div>
+                        </div>
+                    `;
+          }
+          // Show modal
+          document.getElementById("detailModal").style.display = "block";
+        }
+      }
+      // Fungsi untuk mengedit data siswa
+      function editRegistration(id) {
+        const registrations = JSON.parse(
+          localStorage.getItem("registrations") || "[]"
+        );
+        const student = registrations.find((reg) => reg.id_pendaftaran === id);
+        if (student) {
+          // Hide dashboard and show edit form
+          document.getElementById("dashboardContainer").style.display = "none";
+          document.getElementById("editFormContainer").style.display = "block";
+          // Set ID pendaftaran
+          document.getElementById("edit_id_pendaftaran").value =
+            student.id_pendaftaran;
+          // Informasi Pendaftaran
+          document.getElementById("edit_tanggal_pendaftaran").value =
+            student.tanggal_pendaftaran;
+          document.getElementById("edit_gelombang").value = student.gelombang;
+          // Data Siswa
+          document.getElementById("edit_nama").value = student.nama;
+          document.getElementById("edit_nik").value = student.nik;
+          document.getElementById("edit_nisn").value = student.nisn;
+          document.getElementById("edit_tempat_lahir").value =
+            student.tempat_lahir;
+          document.getElementById("edit_tanggal_lahir").value =
+            student.tanggal_lahir;
+          // Set jenis kelamin
+          if (student.jenis_kelamin === "Laki-laki") {
+            document.getElementById("edit_laki-laki").checked = true;
+          } else {
+            document.getElementById("edit_perempuan").checked = true;
+          }
+          document.getElementById("edit_no_hp").value = student.no_hp;
+          document.getElementById("edit_email").value = student.email;
+          document.getElementById("edit_tinggi").value = student.tinggi;
+          document.getElementById("edit_berat").value = student.berat;
+          document.getElementById("edit_alamat").value = student.alamat;
+          document.getElementById("edit_no_kk").value = student.no_kk;
+          document.getElementById("edit_hobby").value = student.hobby;
+          document.getElementById("edit_cita_cita").value = student.cita_cita;
+          document.getElementById("edit_agama").value = student.agama;
+          document.getElementById("edit_asal_sekolah").value =
+            student.asal_sekolah;
+          document.getElementById("edit_alamat_sekolah").value =
+            student.alamat_sekolah;
+          document.getElementById("edit_jurusan").value = student.jurusan;
+          // Set penerima bantuan
+          if (student.penerima_bantuan === "Ya") {
+            document.getElementById("edit_penerima_bantuan_ya").checked = true;
+            document
+              .getElementById("edit_bantuanSection")
+              .classList.add("active");
+            document.getElementById("edit_jenis_kartu").required = true;
+            if (student.jenis_kartu) {
+              document.getElementById("edit_jenis_kartu").value =
+                student.jenis_kartu;
+              document
+                .getElementById("edit_nomorKartuSection")
+                .classList.add("active");
+              document.getElementById("edit_nomor_kartu").required = true;
+              document.getElementById("edit_nomor_kartu").value =
+                student.nomor_kartu || "";
+            }
+          } else {
+            document.getElementById(
+              "edit_penerima_bantuan_tidak"
+            ).checked = true;
+            document
+              .getElementById("edit_bantuanSection")
+              .classList.remove("active");
+            document.getElementById("edit_jenis_kartu").required = false;
+            document
+              .getElementById("edit_nomorKartuSection")
+              .classList.remove("active");
+            document.getElementById("edit_nomor_kartu").required = false;
+          }
+          // Data Ayah
+          document.getElementById("edit_nama_ayah").value = student.nama_ayah;
+          document.getElementById("edit_nik_ayah").value = student.nik_ayah;
+          document.getElementById("edit_no_hp_ayah").value = student.no_hp_ayah;
+          document.getElementById("edit_tempat_lahir_ayah").value =
+            student.tempat_lahir_ayah;
+          document.getElementById("edit_tanggal_lahir_ayah").value =
+            student.tanggal_lahir_ayah;
+          document.getElementById("edit_pekerjaan_ayah").value =
+            student.pekerjaan_ayah;
+          document.getElementById("edit_gaji_ayah").value = student.gaji_ayah;
+          // Data Ibu
+          document.getElementById("edit_nama_ibu").value = student.nama_ibu;
+          document.getElementById("edit_nik_ibu").value = student.nik_ibu;
+          document.getElementById("edit_no_hp_ibu").value = student.no_hp_ibu;
+          document.getElementById("edit_tempat_lahir_ibu").value =
+            student.tempat_lahir_ibu;
+          document.getElementById("edit_tanggal_lahir_ibu").value =
+            student.tanggal_lahir_ibu;
+          document.getElementById("edit_pekerjaan_ibu").value =
+            student.pekerjaan_ibu;
+          document.getElementById("edit_gaji_ibu").value = student.gaji_ibu;
+          // Data Wali
+          if (student.ada_wali) {
+            document.getElementById("edit_ada_wali").checked = true;
+            document
+              .getElementById("edit_wali_section")
+              .classList.add("active");
+            document.getElementById("edit_nama_wali").required = true;
+            document.getElementById("edit_nik_wali").required = true;
+            document.getElementById("edit_pekerjaan_wali").required = true;
+            document.getElementById("edit_tempat_lahir_wali").required = true;
+            document.getElementById("edit_tanggal_lahir_wali").required = true;
+            document.getElementById("edit_no_hp_wali").required = true;
+            document.getElementById("edit_gaji_wali").required = true;
+            document.getElementById("edit_nama_wali").value =
+              student.nama_wali || "";
+            document.getElementById("edit_nik_wali").value =
+              student.nik_wali || "";
+            document.getElementById("edit_pekerjaan_wali").value =
+              student.pekerjaan_wali || "";
+            document.getElementById("edit_tempat_lahir_wali").value =
+              student.tempat_lahir_wali || "";
+            document.getElementById("edit_tanggal_lahir_wali").value =
+              student.tanggal_lahir_wali || "";
+            document.getElementById("edit_no_hp_wali").value =
+              student.no_hp_wali || "";
+            document.getElementById("edit_gaji_wali").value =
+              student.gaji_wali || "";
+          } else {
+            document.getElementById("edit_ada_wali").checked = false;
+            document
+              .getElementById("edit_wali_section")
+              .classList.remove("active");
+            document.getElementById("edit_nama_wali").required = false;
+            document.getElementById("edit_nik_wali").required = false;
+            document.getElementById("edit_pekerjaan_wali").required = false;
+            document.getElementById("edit_tempat_lahir_wali").required = false;
+            document.getElementById("edit_tanggal_lahir_wali").required = false;
+            document.getElementById("edit_no_hp_wali").required = false;
+            document.getElementById("edit_gaji_wali").required = false;
+          }
+          // Setup uppercase inputs for edit form
+          setupEditUppercaseInputs();
+        }
+      }
+      // Ganti fungsi printRegistration yang ada dengan ini
+      function printRegistration(id) {
+        const registrations = JSON.parse(
+          localStorage.getItem("registrations") || "[]"
+        );
+        const student = registrations.find((reg) => reg.id_pendaftaran === id);
+        if (student) {
+          // Isi data bukti pendaftaran untuk dicetak
+          document.getElementById("print_bukti_id").textContent =
+            student.id_pendaftaran;
+          document.getElementById("print_bukti_tanggal").textContent =
+            formatDate(student.tanggal_pendaftaran);
+          document.getElementById("print_bukti_gelombang").textContent =
+            student.gelombang;
+          // Data Siswa
+          document.getElementById("print_bukti_nama").textContent =
+            student.nama;
+          document.getElementById("print_bukti_nik").textContent = student.nik;
+          document.getElementById("print_bukti_nisn").textContent =
+            student.nisn;
+          document.getElementById("print_bukti_jenis_kelamin").textContent =
+            student.jenis_kelamin;
+          document.getElementById("print_bukti_ttl").textContent = `${
+            student.tempat_lahir
+          }, ${formatDate(student.tanggal_lahir)}`;
+          document.getElementById("print_bukti_hp").textContent = student.no_hp;
+          document.getElementById("print_bukti_email").textContent =
+            student.email;
+          document.getElementById("print_bukti_tinggi").textContent =
+            student.tinggi;
+          document.getElementById("print_bukti_berat").textContent =
+            student.berat;
+          document.getElementById("print_bukti_alamat").textContent =
+            student.alamat;
+          document.getElementById("print_bukti_kk").textContent = student.no_kk;
+          document.getElementById("print_bukti_hobby").textContent =
+            student.hobby;
+          document.getElementById("print_bukti_cita").textContent =
+            student.cita_cita;
+          document.getElementById("print_bukti_agama").textContent =
+            student.agama;
+          document.getElementById("print_bukti_asal_sekolah").textContent =
+            student.asal_sekolah;
+          document.getElementById("print_bukti_alamat_sekolah").textContent =
+            student.alamat_sekolah;
+          document.getElementById("print_bukti_jurusan").textContent =
+            student.jurusan;
+          document.getElementById("print_bukti_penerima_bantuan").textContent =
+            student.penerima_bantuan;
+          // Data kartu jika penerima bantuan
+          if (student.penerima_bantuan === "Ya") {
+            document.getElementById(
+              "print_bukti_jenis_kartu_row"
+            ).style.display = "block";
+            document.getElementById("print_bukti_jenis_kartu").textContent =
+              student.jenis_kartu;
+            document.getElementById(
+              "print_bukti_nomor_kartu_row"
+            ).style.display = "block";
+            document.getElementById("print_bukti_nomor_kartu").textContent =
+              student.nomor_kartu;
+          } else {
+            document.getElementById(
+              "print_bukti_jenis_kartu_row"
+            ).style.display = "none";
+            document.getElementById(
+              "print_bukti_nomor_kartu_row"
+            ).style.display = "none";
+          }
+          // Data Ayah
+          document.getElementById("print_bukti_ayah").textContent =
+            student.nama_ayah;
+          document.getElementById("print_bukti_nik_ayah").textContent =
+            student.nik_ayah;
+          document.getElementById("print_bukti_no_hp_ayah").textContent =
+            student.no_hp_ayah;
+          document.getElementById("print_bukti_ttl_ayah").textContent = `${
+            student.tempat_lahir_ayah
+          }, ${formatDate(student.tanggal_lahir_ayah)}`;
+          document.getElementById("print_bukti_pekerjaan_ayah").textContent =
+            student.pekerjaan_ayah;
+          document.getElementById("print_bukti_gaji_ayah").textContent =
+            student.gaji_ayah;
+          // Data Ibu
+          document.getElementById("print_bukti_ibu").textContent =
+            student.nama_ibu;
+          document.getElementById("print_bukti_nik_ibu").textContent =
+            student.nik_ibu;
+          document.getElementById("print_bukti_no_hp_ibu").textContent =
+            student.no_hp_ibu;
+          document.getElementById("print_bukti_ttl_ibu").textContent = `${
+            student.tempat_lahir_ibu
+          }, ${formatDate(student.tanggal_lahir_ibu)}`;
+          document.getElementById("print_bukti_pekerjaan_ibu").textContent =
+            student.pekerjaan_ibu;
+          document.getElementById("print_bukti_gaji_ibu").textContent =
+            student.gaji_ibu;
+          // Nama untuk tanda tangan
+          document.getElementById("print_nama_ttd").textContent = student.nama;
+          // Data Wali (jika ada)
+          if (student.ada_wali) {
+            document.getElementById("print_bukti_wali_section").style.display =
+              "block";
+            document.getElementById("print_bukti_wali").textContent =
+              student.nama_wali || "";
+            document.getElementById("print_bukti_nik_wali").textContent =
+              student.nik_wali || "";
+            document.getElementById("print_bukti_no_hp_wali").textContent =
+              student.no_hp_wali || "";
+            document.getElementById("print_bukti_ttl_wali").textContent =
+              student.tempat_lahir_wali && student.tanggal_lahir_wali
+                ? `${student.tempat_lahir_wali}, ${formatDate(
+                    student.tanggal_lahir_wali
+                  )}`
+                : "";
+            document.getElementById("print_bukti_pekerjaan_wali").textContent =
+              student.pekerjaan_wali || "";
+            document.getElementById("print_bukti_gaji_wali").textContent =
+              student.gaji_wali || "";
+          } else {
+            document.getElementById("print_bukti_wali_section").style.display =
+              "none";
+          }
+          // Sembunyikan dashboard dan tampilkan container print
+          document.getElementById("dashboardContainer").style.display = "none";
+          document.getElementById("printBuktiContainer").style.display =
+            "block";
+          // Tambahkan jeda sebelum mencetak untuk memastikan semua elemen ter-render dengan benar
+          setTimeout(() => {
+            window.print();
+            // Kembali ke dashboard setelah cetak
+            setTimeout(() => {
+              document.getElementById("dashboardContainer").style.display =
+                "block";
+              document.getElementById("printBuktiContainer").style.display =
+                "none";
+            }, 500);
+          }, 1000); // Tambah jeda menjadi 1 detik
+        }
+      }
+      // Fungsi untuk menghapus data pendaftaran
+      function deleteRegistration(id) {
+        if (
+          confirm("Apakah Anda yakin ingin menghapus data pendaftaran ini?")
+        ) {
+          let registrations = JSON.parse(
+            localStorage.getItem("registrations") || "[]"
+          );
+          registrations = registrations.filter(
+            (reg) => reg.id_pendaftaran !== id
+          );
+          localStorage.setItem("registrations", JSON.stringify(registrations));
+          // Reload dashboard data
+          loadDashboardData();
+          // Show notification
+          showNotification("Data pendaftaran berhasil dihapus!");
+        }
+      }
+      // Handle form submission
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Generate ID pendaftaran
+          const registrationId = generateRegistrationId();
+          // Get form data
+          const formData = new FormData(this);
+          const data = {};
+          // Add registration ID
+          data.id_pendaftaran = registrationId;
+          // Add form data
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          // Save to localStorage
+          let registrations = JSON.parse(
+            localStorage.getItem("registrations") || "[]"
+          );
+          registrations.push(data);
+          localStorage.setItem("registrations", JSON.stringify(registrations));
+          // Show bukti pendaftaran
+          document.getElementById("bukti_id").textContent = registrationId;
+          document.getElementById("bukti_tanggal").textContent = formatDate(
+            data.tanggal_pendaftaran
+          );
+          document.getElementById("bukti_gelombang").textContent =
+            data.gelombang;
+          // Data Siswa
+          document.getElementById("bukti_nama").textContent = data.nama;
+          document.getElementById("bukti_nik").textContent = data.nik;
+          document.getElementById("bukti_nisn").textContent = data.nisn;
+          document.getElementById("bukti_jenis_kelamin").textContent =
+            data.jenis_kelamin;
+          document.getElementById("bukti_ttl").textContent = `${
+            data.tempat_lahir
+          }, ${formatDate(data.tanggal_lahir)}`;
+          document.getElementById("bukti_hp").textContent = data.no_hp;
+          document.getElementById("bukti_email").textContent = data.email;
+          document.getElementById("bukti_tinggi").textContent = data.tinggi;
+          document.getElementById("bukti_berat").textContent = data.berat;
+          document.getElementById("bukti_alamat").textContent = data.alamat;
+          document.getElementById("bukti_kk").textContent = data.no_kk;
+          document.getElementById("bukti_hobby").textContent = data.hobby;
+          document.getElementById("bukti_cita").textContent = data.cita_cita;
+          document.getElementById("bukti_agama").textContent = data.agama;
+          document.getElementById("bukti_asal_sekolah").textContent =
+            data.asal_sekolah;
+          document.getElementById("bukti_alamat_sekolah").textContent =
+            data.alamat_sekolah;
+          document.getElementById("bukti_jurusan").textContent = data.jurusan;
+          document.getElementById("bukti_penerima_bantuan").textContent =
+            data.penerima_bantuan;
+          // Data kartu jika penerima bantuan
+          if (data.penerima_bantuan === "Ya") {
+            document.getElementById("bukti_jenis_kartu_row").style.display =
+              "block";
+            document.getElementById("bukti_jenis_kartu").textContent =
+              data.jenis_kartu;
+            document.getElementById("bukti_nomor_kartu_row").style.display =
+              "block";
+            document.getElementById("bukti_nomor_kartu").textContent =
+              data.nomor_kartu;
+          } else {
+            document.getElementById("bukti_jenis_kartu_row").style.display =
+              "none";
+            document.getElementById("bukti_nomor_kartu_row").style.display =
+              "none";
+          }
+          // Data Ayah
+          document.getElementById("bukti_ayah").textContent = data.nama_ayah;
+          document.getElementById("bukti_nik_ayah").textContent = data.nik_ayah;
+          document.getElementById("bukti_no_hp_ayah").textContent = data.no_hp_ayah;
+          document.getElementById("bukti_ttl_ayah").textContent = `${
+            data.tempat_lahir_ayah
+          }, ${formatDate(data.tanggal_lahir_ayah)}`;
+          document.getElementById("bukti_pekerjaan_ayah").textContent =
+            data.pekerjaan_ayah;
+          document.getElementById("bukti_gaji_ayah").textContent =
+            data.gaji_ayah;
+          // Data Ibu
+          document.getElementById("bukti_ibu").textContent = data.nama_ibu;
+          document.getElementById("bukti_nik_ibu").textContent = data.nik_ibu;
+          document.getElementById("bukti_no_hp_ibu").textContent = data.no_hp_ibu;
+          document.getElementById("bukti_ttl_ibu").textContent = `${
+            data.tempat_lahir_ibu
+          }, ${formatDate(data.tanggal_lahir_ibu)}`;
+          document.getElementById("bukti_pekerjaan_ibu").textContent =
+            data.pekerjaan_ibu;
+          document.getElementById("bukti_gaji_ibu").textContent = data.gaji_ibu;
+          // Nama untuk tanda tangan
+          document.getElementById("nama_ttd").textContent = data.nama;
+          // Data Wali (jika ada)
+          if (data.ada_wali) {
+            document.getElementById("bukti_wali_section").style.display =
+              "block";
+            document.getElementById("bukti_wali").textContent =
+              data.nama_wali || "";
+            document.getElementById("bukti_nik_wali").textContent =
+              data.nik_wali || "";
+            document.getElementById("bukti_no_hp_wali").textContent =
+              data.no_hp_wali || "";
+            document.getElementById("bukti_ttl_wali").textContent =
+              data.tempat_lahir_wali && data.tanggal_lahir_wali
+                ? `${data.tempat_lahir_wali}, ${formatDate(
+                    data.tanggal_lahir_wali
+                  )}`
+                : "";
+            document.getElementById("bukti_pekerjaan_wali").textContent =
+              data.pekerjaan_wali || "";
+            document.getElementById("bukti_gaji_wali").textContent =
+              data.gaji_wali || "";
+          } else {
+            document.getElementById("bukti_wali_section").style.display =
+              "none";
+          }
+          // Hide form and show bukti pendaftaran
+          document.querySelector(".container").style.display = "none";
+          document.getElementById("buktiPendaftaran").style.display = "block";
+          // Show notification
+          showNotification("Pendaftaran berhasil! Data telah disimpan.");
+          // Setup download Excel button
+          document
+            .getElementById("downloadExcel")
+            .addEventListener("click", function () {
+              downloadExcel([data]);
+            });
+        });
+      // Handle edit form submission
+      document
+        .getElementById("saveEdit")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          // Get form data
+          const formData = new FormData(document.getElementById("editForm"));
+          const data = {};
+          // Add form data
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          // Get existing registrations
+          let registrations = JSON.parse(
+            localStorage.getItem("registrations") || "[]"
+          );
+          // Find index of registration to update
+          const index = registrations.findIndex(
+            (reg) => reg.id_pendaftaran === data.id_pendaftaran
+          );
+          if (index !== -1) {
+            // Update registration
+            registrations[index] = data;
+            // Save to localStorage
+            localStorage.setItem(
+              "registrations",
+              JSON.stringify(registrations)
+            );
+            // Show dashboard
+            showDashboard();
+            // Show notification
+            showNotification("Data siswa berhasil diperbarui!");
+          }
+        });
+      // Fungsi untuk download data sebagai Excel
+      function downloadExcel(data) {
+        // Prepare data for Excel
+        const excelData = data.map((reg) => ({
+          "ID Pendaftaran": reg.id_pendaftaran,
+          "Tanggal Pendaftaran": reg.tanggal_pendaftaran,
+          Gelombang: reg.gelombang,
+          "Nama Siswa": reg.nama,
+          NIK: reg.nik,
+          NISN: reg.nisn,
+          "Jenis Kelamin": reg.jenis_kelamin,
+          "Tempat Lahir": reg.tempat_lahir,
+          "Tanggal Lahir": reg.tanggal_lahir,
+          "No HP": reg.no_hp,
+          Email: reg.email,
+          "Tinggi Badan": reg.tinggi,
+          "Berat Badan": reg.berat,
+          Alamat: reg.alamat,
+          "No KK": reg.no_kk,
+          Hobby: reg.hobby,
+          "Cita-cita": reg.cita_cita,
+          Agama: reg.agama,
+          "Asal Sekolah": reg.asal_sekolah,
+          "Alamat Sekolah": reg.alamat_sekolah,
+          Jurusan: reg.jurusan,
+          "Penerima Bantuan": reg.penerima_bantuan,
+          "Jenis Kartu": reg.jenis_kartu || "",
+          "Nomor Kartu": reg.nomor_kartu || "",
+          "Nama Ayah": reg.nama_ayah,
+          "NIK Ayah": reg.nik_ayah,
+          "No HP Ayah": reg.no_hp_ayah,
+          "Tempat Lahir Ayah": reg.tempat_lahir_ayah,
+          "Tanggal Lahir Ayah": reg.tanggal_lahir_ayah,
+          "Pekerjaan Ayah": reg.pekerjaan_ayah,
+          "Gaji Ayah": reg.gaji_ayah,
+          "Nama Ibu": reg.nama_ibu,
+          "NIK Ibu": reg.nik_ibu,
+          "No HP Ibu": reg.no_hp_ibu,
+          "Tempat Lahir Ibu": reg.tempat_lahir_ibu,
+          "Tanggal Lahir Ibu": reg.tanggal_lahir_ibu,
+          "Pekerjaan Ibu": reg.pekerjaan_ibu,
+          "Gaji Ibu": reg.gaji_ibu,
+          "Ada Wali": reg.ada_wali ? "Ya" : "Tidak",
+          "Nama Wali": reg.nama_wali || "",
+          "NIK Wali": reg.nik_wali || "",
+          "No HP Wali": reg.no_hp_wali || "",
+          "Tempat Lahir Wali": reg.tempat_lahir_wali || "",
+          "Tanggal Lahir Wali": reg.tanggal_lahir_wali || "",
+          "Pekerjaan Wali": reg.pekerjaan_wali || "",
+          "Gaji Wali": reg.gaji_wali || "",
+        }));
+        // Create workbook
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(excelData);
+        // Add worksheet to workbook
+        XLSX.utils.book_append_sheet(wb, ws, "Data Pendaftar");
+        // Generate filename with current date
+        const now = new Date();
+        const dateStr = now.toISOString().split("T")[0];
+        const filename = `Data_Pendaftar_${dateStr}.xlsx`;
+        // Save file
+        XLSX.writeFile(wb, filename);
+        // Show notification
+        showNotification("File Excel berhasil diunduh!");
+      }
+      // Event listeners untuk navigasi
+      document
+        .getElementById("goToDashboard")
+        .addEventListener("click", showDashboard);
+      document
+        .getElementById("goToDashboardFromBukti")
+        .addEventListener("click", showDashboard);
+      document
+        .getElementById("newRegistration")
+        .addEventListener("click", function () {
+          // Reset form
+          resetForm();
+          // Show form and hide other views
+          document.querySelector(".container").style.display = "block";
+          document.getElementById("buktiPendaftaran").style.display = "none";
+          document.getElementById("dashboardContainer").style.display = "none";
+          document.getElementById("editFormContainer").style.display = "none";
+        });
+      document
+        .getElementById("backToForm")
+        .addEventListener("click", function () {
+          // Reset form
+          resetForm();
+          // Show form and hide bukti pendaftaran
+          document.querySelector(".container").style.display = "block";
+          document.getElementById("buktiPendaftaran").style.display = "none";
+          // Show notification
+          showNotification(
+            "Form telah dikosongkan. Silahkan isi data pendaftaran berikutnya."
+          );
+        });
+      document
+        .getElementById("cancelEdit")
+        .addEventListener("click", function () {
+          // Show dashboard and hide edit form
+          document.getElementById("dashboardContainer").style.display = "block";
+          document.getElementById("editFormContainer").style.display = "none";
+        });
+      document
+        .getElementById("downloadAllData")
+        .addEventListener("click", function () {
+          const registrations = JSON.parse(
+            localStorage.getItem("registrations") || "[]"
+          );
+          downloadExcel(registrations);
+        });
+      // Modal close event
+      document.querySelector(".close").addEventListener("click", function () {
+        document.getElementById("detailModal").style.display = "none";
+      });
+      // Close modal when clicking outside
+      window.addEventListener("click", function (event) {
+        const modal = document.getElementById("detailModal");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+      // Inisialisasi fungsi uppercase input saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", function () {
+        setupUppercaseInputs();
+      });
+      // Fungsi untuk mengubah input menjadi uppercase di form edit
+      function setupEditUppercaseInputs() {
+        const uppercaseInputs = document.querySelectorAll(
+          "#editForm .uppercase-input"
+        );
+        uppercaseInputs.forEach((input) => {
+          input.addEventListener("input", function () {
+            this.value = this.value.toUpperCase();
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
